@@ -1,0 +1,27 @@
+@model List<AdminUserViewModel>
+
+<h2 class="page-title">Користувачі</h2>
+
+<div class="table-wrap">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+            <tr>
+                <th>ID</th>
+                <th>Логін</th>
+                <th>Email</th>
+                <th>Роль</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td class="fw-semibold">@user.Username</td>
+                    <td>@user.Email</td>
+                    <td><span class="badge text-bg-secondary">@user.Role</span></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

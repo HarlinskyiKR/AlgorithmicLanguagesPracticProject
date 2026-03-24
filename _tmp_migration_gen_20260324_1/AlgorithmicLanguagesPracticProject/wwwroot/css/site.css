@@ -1,0 +1,55 @@
+body {
+  background: linear-gradient(180deg, #f8f9fa 0%, #eef2f7 100%);
+  min-height: 100vh;
+}
+
+main .container {
+  max-width: 1080px;
+}
+
+.page-title {
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+}
+
+.surface-card {
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+.media-card {
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.media-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.12);
+}
+
+.table-wrap {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+.auth-card {
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 0.75rem 1.25rem rgba(0, 0, 0, 0.1);
+}
+
+.form-control,
+.form-select,
+.btn {
+  border-radius: 0.65rem;
+}
+
+.comment-box {
+  border: 1px solid #e9ecef;
+  border-radius: 0.75rem;
+  background: #fff;
+}

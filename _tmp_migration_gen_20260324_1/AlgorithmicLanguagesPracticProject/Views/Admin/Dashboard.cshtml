@@ -1,0 +1,22 @@
+@{
+    ViewData["Title"] = "Адмін-панель";
+}
+
+<h2 class="page-title">Панель адміністратора</h2>
+<div class="list-group surface-card overflow-hidden">
+    <a asp-action="Media"
+           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3">
+        <span><i class="bi bi-collection-play me-2"></i>Керування контентом (CRUD)</span>
+        <i class="bi bi-chevron-right"></i>
+    </a>
+    <a asp-action="Users"
+           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3">
+        <span><i class="bi bi-people me-2"></i>Керування користувачами</span>
+        <i class="bi bi-chevron-right"></i>
+    </a>
+    <a asp-action="Comments"
+           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3">
+        <span><i class="bi bi-chat-left-text me-2"></i>Керування коментарями</span>
+        <i class="bi bi-chevron-right"></i>
+    </a>
+</div>

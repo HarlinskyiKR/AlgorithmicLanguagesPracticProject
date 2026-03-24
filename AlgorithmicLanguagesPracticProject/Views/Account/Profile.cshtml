@@ -1,0 +1,11 @@
+@model UserProfileViewModel
+
+<h2 class="page-title">Профіль</h2>
+
+<div class="card surface-card">
+    <div class="card-body p-4">
+        <p class="mb-3"><span class="badge text-bg-primary me-2">Користувач</span>@Model.Username</p>
+        <p class="mb-3"><span class="badge text-bg-secondary me-2">Email</span>@Model.Email</p>
+        <p class="mb-0"><span class="badge text-bg-dark me-2">Роль</span>@Model.Role</p>
+    </div>
+</div>
