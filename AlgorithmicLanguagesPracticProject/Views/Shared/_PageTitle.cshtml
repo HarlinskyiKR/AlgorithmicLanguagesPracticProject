@@ -1,0 +1,10 @@
+@model PageTitleViewModel
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <h2 class="page-title mb-0">@Model.Title</h2>
+    @if (!string.IsNullOrEmpty(Model.AddAction))
+    {
+        <a asp-action="@Model.AddAction" class="btn btn-primary">
+            @Model.AddText <i class="bi bi-plus-square"></i>
+        </a>
+    }
+</div>

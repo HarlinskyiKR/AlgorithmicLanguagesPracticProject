@@ -1,5 +1,9 @@
 @model UserRegisterViewModel
 
+@{
+    ViewBag.Title = "Реєстрація";
+}
+
 <div class="row justify-content-center">
     <div class="col-md-6 col-lg-5">
         <div class="card auth-card">
@@ -28,7 +32,7 @@
                         <input asp-for="ConfirmPassword" type="password" class="form-control" />
                         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                     </div>
-                    <button type="submit" class="btn btn-success w-100">Зареєструватися</button>
+                    <button type="submit" class="btn btn-primary w-100">Зареєструватися</button>
                 </form>
             </div>
         </div>

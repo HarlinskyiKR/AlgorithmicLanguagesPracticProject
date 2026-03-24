@@ -3,13 +3,21 @@
     ViewBag.Title = "Редагувати жанр";
 }
 <h2>Редагувати жанр</h2>
-<form asp-action="EditGenre" method="post">
-    <input type="hidden" name="id" value="@Model.Id" />
-    <div class="form-group mb-3">
-        <label for="Name">Назва жанру</label>
-        <input type="text" name="Name" class="form-control" value="@Model.Name" required />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-success">Зберегти</button>
-    <a asp-action="Genres" class="btn btn-secondary">Скасувати</a>
-</form>
+
+@await Html.PartialAsync("_PageTitle", new PageTitleViewModel
+{
+    Title = "Редагування жанру"
+})
+
+<div class="card surface-card p-4" bis_skin_checked="1">
+    <form asp-action="EditGenre" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <div class="form-group mb-3">
+            <label for="Name">Назва жанру</label>
+            <input type="text" name="Name" class="form-control" value="@Model.Name" required />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-success">Зберегти</button>
+        <a asp-action="Genres" class="btn btn-secondary">Скасувати</a>
+    </form>
+</div>

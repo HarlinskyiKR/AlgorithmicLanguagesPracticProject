@@ -1,6 +1,13 @@
 @model CreateMediaViewModel
 
-<h2 class="page-title">Додати медіа</h2>
+@{
+    ViewData["Title"] = "Додати медіа";
+}
+
+@await Html.PartialAsync("_PageTitle", new PageTitleViewModel
+{
+    Title = "Додати медіа"
+})
 
 <div class="card surface-card p-4">
     <form asp-action="CreateMedia" method="post">
@@ -73,6 +80,6 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Зберегти</button>
-        <a asp-action="Index" class="btn btn-outline-secondary">Скасувати</a>
+        <a asp-action="Media" class="btn btn-outline-secondary">Скасувати</a>
     </form>
 </div>

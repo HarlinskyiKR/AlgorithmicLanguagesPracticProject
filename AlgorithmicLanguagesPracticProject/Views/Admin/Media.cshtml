@@ -4,10 +4,11 @@
     ViewBag.Title = "Керування медіа";
 }
 
-<div class="d-flex justify-content-between mb-3">
-    <h2 class="page-title">Керування медіа</h2>
-    <a asp-action="CreateMedia" class="btn btn-primary">Додати <i class="bi bi-plus-square"></i></a>
-</div>
+@await Html.PartialAsync("_PageTitle", new PageTitleViewModel
+{
+    Title = "Керування медіа",
+    AddAction = "CreateMedia"
+})
 
 <div class="table-wrap">
     <table class="table table-hover align-middle mb-0">

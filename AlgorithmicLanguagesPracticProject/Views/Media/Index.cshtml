@@ -4,6 +4,15 @@
     ViewBag.Title = "Каталог медіа";
 }
 
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <h2 class="page-title mb-0">Каталог фільмів
+        @if (ViewBag.SelectedGenre is AlgorithmicLanguagesPracticProject.Models.Entities.Genre selectedGenre)
+        {
+            <span>: </span><span class="bg-secondary">@selectedGenre.Name</span>
+        }
+    </h2>
+</div>
+
 @if (ViewBag.Genres is List<AlgorithmicLanguagesPracticProject.Models.Entities.Genre> genres && genres.Count > 0)
 {
     <div class="nav-scroller bg-body shadow-sm mb-4" bis_skin_checked="1">
@@ -18,15 +27,6 @@
         </ul>
     </div>
 }
-
-<div class="d-flex align-items-center justify-content-between mb-4">
-    <h2 class="page-title mb-0">Каталог фільмів
-        @if (ViewBag.SelectedGenre is AlgorithmicLanguagesPracticProject.Models.Entities.Genre selectedGenre)
-        {
-            <span>: </span><span class="bg-secondary">@selectedGenre.Name</span>
-        }
-    </h2>
-</div>
 
 <div class="row">
     @foreach (var item in Model)

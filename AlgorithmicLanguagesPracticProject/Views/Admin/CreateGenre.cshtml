@@ -1,13 +1,19 @@
 @{
     ViewData["Title"] = "Створити жанр";
 }
-<h2>Створити жанр</h2>
-<form asp-action="CreateGenre" method="post">
-    <div class="mb-3">
-        <label for="Name" class="form-label">Назва жанру</label>
-        <input type="text" class="form-control" id="Name" name="name" value="" required />
-        <!-- Валідація для простого поля без strongly-typed моделі не потрібна -->
-    </div>
-    <button type="submit" class="btn btn-primary">Створити</button>
-    <a asp-action="Genres" class="btn btn-secondary">Скасувати</a>
-</form>
+@await Html.PartialAsync("_PageTitle", new PageTitleViewModel
+{
+    Title = "Створити жанр"
+})
+
+<div class="card surface-card p-4" bis_skin_checked="1">
+    <form asp-action="CreateGenre" method="post">
+        <div class="mb-3">
+            <label for="Name" class="form-label">Назва жанру</label>
+            <input type="text" class="form-control" id="Name" name="name" value="" required />
+            <!-- Валідація для простого поля без strongly-typed моделі не потрібна -->
+        </div>
+        <button type="submit" class="btn btn-primary">Створити</button>
+        <a asp-action="Genres" class="btn btn-secondary">Скасувати</a>
+    </form>
+</div>

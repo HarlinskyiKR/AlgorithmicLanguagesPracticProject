@@ -4,7 +4,11 @@
     var mediaId = (int?)ViewData["MediaId"] ?? 0;
 }
 
-<h2 class="page-title">Редагування медіа</h2>
+@await Html.PartialAsync("_PageTitle", new PageTitleViewModel
+{
+    Title = "Редагування медіа",
+    AddAction = "CreateMedia"
+})
 
 <div class="card surface-card p-4">
     <form asp-action="EditMedia" asp-route-id="@mediaId" method="post">
@@ -26,7 +30,7 @@
 
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label asp-for="GenreId" class="control-label">Жанр</label>
+                <label asp-for="GenreId" class="form-label">Жанр</label>
                 <select asp-for="GenreId" class="form-control"
                         asp-items="@(new SelectList(Model.Genres, "Id", "Name", Model.GenreId))">
                     <option value="">Оберіть жанр</option>

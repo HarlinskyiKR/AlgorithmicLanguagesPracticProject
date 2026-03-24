@@ -1,20 +1,17 @@
 @model UserProfileViewModel
 
-<h2 class="page-title">Профіль</h2>
+@{
+    ViewBag.Title = "Профіль";
+}
+
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <h2 class="page-title mb-0">Профіль</h2>
+</div>
+
 
 <div class="card surface-card">
-    <div class="card-body p-4">
-        <p class="mb-3">
-            <span class="badge text-bg-primary me-2">Користувач</span>
-            @Model.Username
-        </p>
-        <p class="mb-3">
-            <span class="badge text-bg-primary me-2">Email</span>
-            @Model.Email
-        </p>
-        <p class="mb-0">
-            <span class="badge text-bg-primary me-2">Роль</span>
-            @Model.Role
-        </p>
+    <div class="card-body">
+        <h4 class="card-title mb-3">@Model.Username</h4>
+        <p class="card-text"><strong>Email:</strong> @Model.Email</p>
+        <p class="card-text"><strong>Роль:</strong> Model.Role</p>
     </div>
-</div>

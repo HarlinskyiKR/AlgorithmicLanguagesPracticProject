@@ -1,12 +1,17 @@
 @{
-    ViewData["Title"] = "Адмін-панель";
+    ViewData["Title"] = "Панель адміністратора";
 }
 
-<h2 class="page-title">Панель адміністратора</h2>
+@await Html.PartialAsync("_PageTitle", new PageTitleViewModel
+{
+    Title = "Панель адміністратора"
+})
+
+
 <div class="list-group surface-card overflow-hidden">
     <a asp-action="Media"
            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3">
-        <span><i class="bi bi-collection-play me-2"></i>Керування контентом (CRUD)</span>
+        <span><i class="bi bi-collection-play me-2"></i>Керування медіа</span>
         <i class="bi bi-chevron-right"></i>
     </a>
     <a asp-action="Users"
