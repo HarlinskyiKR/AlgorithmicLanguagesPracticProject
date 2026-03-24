@@ -1,0 +1,38 @@
+@model List<AlgorithmicLanguagesPracticProject.Models.Entities.Genre>
+
+@{
+    ViewBag.Title = "Управління жанрами";
+}
+
+<div class="d-flex justify-content-between mb-3">
+    <h2 class="page-title mb-0">Управління жанрами</h2>
+    <a asp-action="CreateGenre" class="btn btn-primary">Додати <i class="bi bi-plus-square"></i></a>
+</div>
+
+<div class="table-wrap">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+            <tr>
+                <th>Id</th>
+                <th>Назва</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var genre in Model)
+            {
+                <tr>
+                    <td>@genre.Id</td>
+                    <td>@genre.Name</td>
+                    <td>
+                        <a asp-action="EditGenre" asp-route-id="@genre.Id" class="btn btn-sm btn-warning">Редагувати</a>
+                        <form asp-action="DeleteGenre" asp-route-id="@genre.Id" method="post" style="display:inline">
+                            <button type="submit" class="btn btn-sm btn-danger"
+                                    onclick="return confirm('Видалити жанр?')">Видалити</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

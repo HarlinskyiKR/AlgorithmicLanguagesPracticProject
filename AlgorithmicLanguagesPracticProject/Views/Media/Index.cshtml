@@ -1,24 +1,72 @@
 @model List<MediaViewModel>
 
+@{
+    ViewBag.Title = "Каталог медіа";
+}
+
+@if (ViewBag.Genres is List<AlgorithmicLanguagesPracticProject.Models.Entities.Genre> genres && genres.Count > 0)
+{
+    <div class="nav-scroller bg-body shadow-sm mb-4" bis_skin_checked="1">
+        <ul class="nav nav-pills">
+            @foreach (var genre in genres)
+            {
+                <li class="nav-item">
+                    <a class="nav-link @(ViewBag.SelectedGenre != null && ViewBag.SelectedGenre.Id == genre.Id ? "active" : "")"
+                       asp-action="Index" asp-route-genreId="@genre.Id">@genre.Name</a>
+                </li>
+            }
+        </ul>
+    </div>
+}
+
 <div class="d-flex align-items-center justify-content-between mb-4">
-    <h2 class="page-title mb-0">Каталог фільмів</h2>
-    <a asp-action="Create" class="btn btn-primary">
-        <i class="bi bi-plus-lg me-1"></i> Додати медіа
-    </a>
+    <h2 class="page-title mb-0">Каталог фільмів
+        @if (ViewBag.SelectedGenre is AlgorithmicLanguagesPracticProject.Models.Entities.Genre selectedGenre)
+        {
+            <span>: </span><span class="bg-secondary">@selectedGenre.Name</span>
+        }
+    </h2>
 </div>
 
 <div class="row">
     @foreach (var item in Model)
     {
         <div class="col-md-4 mb-4">
-            <div class="card h-100 surface-card media-card">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">@item.Title</h5>
-                    <p class="card-text text-muted mb-3">
-                        <i class="bi bi-calendar3 me-1"></i> Рік: @item.ReleaseYear
-                    </p>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary">Детальніше</a>
+            <a asp-action="Details" asp-route-id="@item.Id" style="text-decoration: none; color: inherit;">
+                <div class="card h-100 surface-card media-card" style="transition: transform 0.2s;overflow: hidden;">
+                    <img src="@item.PosterUrl" class="card-img-top" alt="Постер @item.Title" />
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">@item.Title</h5>
+                        <p class="card-text mt-2">
+                            @if (!string.IsNullOrEmpty(item.Description))
+                            {
+                                var desc = item.Description.Length > 100 ? item.Description.Substring(0, 100) + "..." :
+                        item.Description;
+                                @desc
+                            }
+                        </p>
+                        <p class="card-text text-muted mb-3">
+                            <i class="bi bi-globe-americas"></i> Країна: @item.Country
+                        </p>
+                        <p class="card-text text-muted mb-3">
+                            <i class="bi bi-tags me-2"></i> Жанр: @item.GenreName
+                        </p>
+                        <p class="card-text text-muted">
+                            <i class="bi bi-calendar3 me-1"></i> Рік: @item.ReleaseYear
+                        </p>
+                        <p class="card-text mt-2">
+                            <i class="bi bi-star-fill text-warning me-1"></i> Рейтинг: @item.Rating.ToString("0.0")
+                        </p>
+                    </div>
                 </div>
+            </a>
+        </div>
+    }
+    @if (Model.Count == 0)
+    {
+        <div class="col-12">
+            <div class="alert alert-info text-center" role="alert">
+                Немає доступних медіа для відображення.
             </div>
         </div>
     }

@@ -7,4 +7,5 @@ public class AdminCommentViewModel
     public DateTime CreatedAt { get; set; }
     public int MediaId { get; set; }
     public int UserId { get; set; }
+    public string Username { get; set; } = string.Empty;
 }

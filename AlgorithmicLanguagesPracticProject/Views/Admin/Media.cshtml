@@ -1,8 +1,12 @@
 @model List<MediaViewModel>
 
+@{
+    ViewBag.Title = "Керування медіа";
+}
+
 <div class="d-flex justify-content-between mb-3">
-    <h2 class="page-title mb-0">Керування медіа</h2>
-    <a asp-controller="Media" asp-action="Create" class="btn btn-success">Додати нове</a>
+    <h2 class="page-title">Керування медіа</h2>
+    <a asp-action="CreateMedia" class="btn btn-primary">Додати <i class="bi bi-plus-square"></i></a>
 </div>
 
 <div class="table-wrap">
@@ -21,8 +25,8 @@
                     <td>@m.Id</td>
                     <td class="fw-semibold">@m.Title</td>
                     <td class="text-end">
-                        <a asp-action="Edit" asp-route-id="@m.Id" class="btn btn-sm btn-outline-warning">Редагувати</a>
-                        <a asp-action="Delete" asp-route-id="@m.Id" class="btn btn-sm btn-outline-danger">Видалити</a>
+                        <a asp-action="EditMedia" asp-route-id="@m.Id" class="btn btn-sm btn-outline-warning">Редагувати</a>
+                        <a asp-action="DeleteMedia" asp-route-id="@m.Id" class="btn btn-sm btn-outline-danger">Видалити</a>
                     </td>
                 </tr>
             }

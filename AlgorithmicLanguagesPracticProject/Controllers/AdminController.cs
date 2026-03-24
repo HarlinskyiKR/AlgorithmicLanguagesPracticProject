@@ -3,97 +3,163 @@ using AlgorithmicLanguagesPracticProject.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AlgorithmicLanguagesPracticProject.Controllers;
-
-[Authorize(Roles = "Admin")]
-public class AdminController : Controller
+namespace AlgorithmicLanguagesPracticProject.Controllers
 {
-    private readonly IMediaService _mediaService;
-    private readonly IUserService _userService;
-
-    public AdminController(IMediaService mediaService, IUserService userService)
+    [Authorize(Roles = "Admin")]
+    public class AdminController : Controller
     {
-        _mediaService = mediaService;
-        _userService = userService;
-    }
+        private readonly IMediaService _mediaService;
 
-    public IActionResult Dashboard() => View();
-
-    public IActionResult Media()
-    {
-        return View(_mediaService.GetAll());
-    }
-
-    public IActionResult Users()
-    {
-        return View(_userService.GetAllUsers());
-    }
-
-    public IActionResult Edit(int id)
-    {
-        var model = _mediaService.GetForEdit(id);
-        if (model is null)
+        public AdminController(IMediaService mediaService)
         {
-            return NotFound();
+            _mediaService = mediaService;
         }
 
-        ViewData["MediaId"] = id;
-        return View(model);
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Edit(int id, CreateMediaViewModel model)
-    {
-        if (!ModelState.IsValid)
+        [HttpGet]
+        public IActionResult EditGenre(int id)
         {
-            ViewData["MediaId"] = id;
-            return View(model);
+            var genre = _mediaService.GetGenreById(id);
+            if (genre == null) return NotFound();
+            return View(genre);
         }
 
-        var updated = _mediaService.Update(id, model);
-        if (!updated)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditGenre(int id, string name)
         {
-            return NotFound();
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                ModelState.AddModelError("", "Назва жанру не може бути порожньою");
+                var genre = _mediaService.GetGenreById(id);
+                return View(genre);
+            }
+            _mediaService.UpdateGenre(id, name);
+            return RedirectToAction(nameof(Genres));
         }
 
-        return RedirectToAction(nameof(Media));
-    }
-
-    public IActionResult Delete(int id)
-    {
-        var media = _mediaService.GetForDelete(id);
-        if (media is null)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteGenre(int id)
         {
-            return NotFound();
+            _mediaService.DeleteGenre(id);
+            return RedirectToAction(nameof(Genres));
         }
 
-        return View(media);
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult DeleteConfirmed(int id)
-    {
-        var deleted = _mediaService.Delete(id);
-        if (!deleted)
+        [HttpGet]
+        public IActionResult Genres()
         {
-            return NotFound();
+            var genres = _mediaService.GetAllGenres();
+            return View(genres);
         }
 
-        return RedirectToAction(nameof(Media));
-    }
+        [HttpGet]
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult CreateGenre()
+        {
+            return View();
+        }
 
-    public IActionResult Comments()
-    {
-        return View(_mediaService.GetComments());
-    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateGenre(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                ModelState.AddModelError("", "Назва жанру не може бути порожньою");
+                return View();
+            }
+            _mediaService.AddGenre(name);
+            return RedirectToAction(nameof(Genres));
+        }
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult DeleteComment(int id)
-    {
-        _mediaService.DeleteComment(id);
-        return RedirectToAction(nameof(Comments));
+        [HttpGet]
+        public IActionResult Comments()
+        {
+            var comments = _mediaService.GetComments();
+            return View(comments);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteComment(int id)
+        {
+            _mediaService.DeleteComment(id);
+            return RedirectToAction(nameof(Comments));
+        }
+
+        [HttpGet]
+        public IActionResult Media()
+        {
+            var medias = _mediaService.GetAll();
+            return View(medias);
+        }
+
+        [HttpGet]
+        public IActionResult DeleteMedia(int id)
+        {
+            var media = _mediaService.GetForDelete(id);
+            if (media == null) return NotFound();
+            return View(media);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteMediaConfirmed(int id)
+        {
+            _mediaService.Delete(id);
+            return RedirectToAction(nameof(Media));
+        }
+
+        [HttpGet]
+        public IActionResult EditMedia(int id)
+        {
+            var media = _mediaService.GetForEdit(id);
+            if (media == null) return NotFound();
+            return View(media);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditMedia(int id, CreateMediaViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.Genres = _mediaService.GetAllGenres();
+                return View(model);
+            }
+            var success = _mediaService.Update(id, model);
+            if (!success) return NotFound();
+            return RedirectToAction(nameof(Media));
+        }
+
+        [HttpGet]
+        public IActionResult CreateMedia()
+        {
+            return View(new CreateMediaViewModel { Genres = _mediaService.GetAllGenres() });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateMedia(CreateMediaViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.Genres = _mediaService.GetAllGenres();
+                return View(model);
+            }
+            _mediaService.Create(model);
+            return RedirectToAction(nameof(Media));
+        }
+
+        [HttpGet]
+        public IActionResult Users()
+        {
+            var users = _mediaService.GetAllUsers();
+            return View(users);
+        }
     }
 }

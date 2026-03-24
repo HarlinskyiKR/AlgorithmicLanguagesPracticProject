@@ -15,9 +15,20 @@ public class MediaController : Controller
         _mediaService = mediaService;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(int? genreId)
     {
-        var data = _mediaService.GetAll();
+        var data = genreId.HasValue ? _mediaService.GetAllByGenre(genreId.Value) : _mediaService.GetAll();
+        var genres = _mediaService.GetAllGenres();
+        ViewBag.Genres = genres;
+        if (genreId.HasValue)
+        {
+            var selectedGenre = genres.FirstOrDefault(g => g.Id == genreId.Value);
+            ViewBag.SelectedGenre = selectedGenre;
+        }
+        else
+        {
+            ViewBag.SelectedGenre = null;
+        }
         return View(data);
     }
 
@@ -33,7 +44,14 @@ public class MediaController : Controller
     }
 
     [Authorize]
-    public IActionResult Create() => View(new CreateMediaViewModel());
+    public IActionResult Create()
+    {
+        var model = new CreateMediaViewModel
+        {
+            Genres = _mediaService.GetAllGenres()
+        };
+        return View(model);
+    }
 
     [Authorize]
     [HttpPost]
@@ -42,6 +60,7 @@ public class MediaController : Controller
     {
         if (!ModelState.IsValid)
         {
+            model.Genres = _mediaService.GetAllGenres();
             return View(model);
         }
 

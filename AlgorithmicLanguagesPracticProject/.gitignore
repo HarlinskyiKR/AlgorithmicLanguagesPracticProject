@@ -52,3 +52,5 @@ artifacts/
 ~$*
 
 appsettings.*.json
+
+BuildHost-*

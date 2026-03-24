@@ -7,20 +7,8 @@
 
 <div class="card surface-card p-4">
     <p class="mb-1">Ви дійсно хочете видалити цей запис?</p>
-    <h4 class="mb-3">@Model.Title</h4>
-
-    <dl class="row mb-4">
-        <dt class="col-sm-3">ID</dt>
-        <dd class="col-sm-9">@Model.Id</dd>
-
-        <dt class="col-sm-3">Рік</dt>
-        <dd class="col-sm-9">@Model.ReleaseYear</dd>
-
-        <dt class="col-sm-3">Рейтинг</dt>
-        <dd class="col-sm-9">@Model.Rating</dd>
-    </dl>
-
-    <form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post">
+    <h4 class="mb-3">ID:@Model.Id | @Model.Title</h4>
+    <form asp-action="DeleteMediaConfirmed" asp-route-id="@Model.Id" method="post">
         @Html.AntiForgeryToken()
         <button type="submit" class="btn btn-danger">Так, видалити</button>
         <a asp-action="Media" class="btn btn-outline-secondary">Скасувати</a>

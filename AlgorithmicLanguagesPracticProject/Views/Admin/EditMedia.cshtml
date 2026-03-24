@@ -1,0 +1,86 @@
+@model CreateMediaViewModel
+@{
+    ViewData["Title"] = "Редагування медіа";
+    var mediaId = (int?)ViewData["MediaId"] ?? 0;
+}
+
+<h2 class="page-title">Редагування медіа</h2>
+
+<div class="card surface-card p-4">
+    <form asp-action="EditMedia" asp-route-id="@mediaId" method="post">
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label">Назва</label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Опис</label>
+            <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="GenreId" class="control-label">Жанр</label>
+                <select asp-for="GenreId" class="form-control"
+                        asp-items="@(new SelectList(Model.Genres, "Id", "Name", Model.GenreId))">
+                    <option value="">Оберіть жанр</option>
+                </select>
+                <span asp-validation-for="GenreId" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="Country" class="form-label">Країна</label>
+                <input asp-for="Country" class="form-control" placeholder="Країна випуску" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Directors" class="form-label">Режисери</label>
+            <input asp-for="Directors" class="form-control" placeholder="Через кому" />
+            <span asp-validation-for="Directors" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Actors" class="form-label">Актори</label>
+            <textarea asp-for="Actors" class="form-control" rows="3" placeholder="Через кому"></textarea>
+            <span asp-validation-for="Actors" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="PlayerIframeUrl" class="form-label">Посилання для iframe</label>
+            <input asp-for="PlayerIframeUrl" class="form-control" placeholder="https://..." />
+            <span asp-validation-for="PlayerIframeUrl" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="PosterUrl" class="form-label">Посилання на постер</label>
+            <input asp-for="PosterUrl" class="form-control" placeholder="https://..." />
+            <span asp-validation-for="PosterUrl" class="text-danger"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label asp-for="ReleaseYear" class="form-label">Рік</label>
+                <input asp-for="ReleaseYear" class="form-control" />
+                <span asp-validation-for="ReleaseYear" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="Rating" class="form-label">Рейтинг</label>
+                <input asp-for="Rating" class="form-control" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+        </div>
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-primary">Зберегти зміни</button>
+        <a asp-action="Media" class="btn btn-outline-secondary">Скасувати</a>
+    </form>
+</div>
