@@ -10,6 +10,8 @@ dotnet run --project AlgorithmicLanguagesPracticProject/AlgorithmicLanguagesPrac
 
 Застосунок використовує SQLite (файл `app.db`) та EF Core.
 
+При першому запуску застосунок автоматично викликає `Database.Migrate()`, тому структура БД і тестові дані створюються без ручних команд.
+
 ## Міграції EF Core
 
 Створення міграції:
@@ -33,8 +35,16 @@ dotnet ef database update \
 - Адміністратор:
   - Email: `admin@local`
   - Password: `admin`
+- Користувач 1:
+  - Email: `user1@local`
+  - Password: `user123`
+- Користувач 2:
+  - Email: `user2@local`
+  - Password: `test1234`
 
 Можна також створити звичайного користувача через сторінку реєстрації.
+
+Початкові тестові дані додаються міграціями: студії, медіа та коментарі.
 
 ## Основні сценарії перевірки
 
